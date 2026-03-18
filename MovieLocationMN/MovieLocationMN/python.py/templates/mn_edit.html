@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Edit MN ({{ link.idfilm }}, {{ link.idlocatie }})</h2>
+
+<div class="card">
+  <form method="post" action="{{ url_for('mn_update', idfilm=link.idfilm, idlocatie=link.idlocatie) }}" class="row">
+    <select name="idfilm" required>
+      {% for m in movies %}
+        <option value="{{ m.idfilm }}" {% if m.idfilm == link.idfilm %}selected{% endif %}>
+          {{ m.Nume }} (ID {{ m.idfilm }})
+        </option>
+      {% endfor %}
+    </select>
+
+    <select name="idlocatie" required>
+      {% for l in locations %}
+        <option value="{{ l.idlocatie }}" {% if l.idlocatie == link.idlocatie %}selected{% endif %}>
+          {{ l.Nume }} (ID {{ l.idlocatie }})
+        </option>
+      {% endfor %}
+    </select>
+
+    <button type="submit">Salveaza</button>
+  </form>
+
+  <a class="link" href="{{ url_for('mn_list') }}">Inapoi</a>
+</div>
+{% endblock %}

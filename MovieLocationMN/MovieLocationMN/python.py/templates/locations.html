@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Locations</h2>
+
+<div class="card">
+  <h3>Adauga locatie</h3>
+  <form method="post" action="{{ url_for('locations_add') }}" class="row">
+    <input name="nume" placeholder="Nume locație (unic)" required>
+    <input name="capacitate" placeholder="Capacitate" required>
+    <button type="submit">Adauga</button>
+  </form>
+</div>
+
+<div class="card">
+  <h3>Lista locatii</h3>
+  <table>
+    <thead>
+      <tr><th>ID</th><th>Nume</th><th>Capacitate</th></tr>
+    </thead>
+    <tbody>
+      {% for l in locations %}
+      <tr>
+        <td>{{ l.idlocatie }}</td>
+        <td>{{ l.Nume }}</td>
+        <td>{{ l.capacitate }}</td>
+        <td class="actions">
+          <a class="btn" href="{{ url_for('locations_edit', idlocatie=l.idlocatie) }}">Edit</a>
+          <form method="post" action="{{ url_for('locations_delete', idlocatie=l.idlocatie) }}" onsubmit="return confirm('Stergi locatia?')">
+            <button class="btn danger" type="submit">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {% else %}
+      <tr><td colspan="4">Nicio locatie.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

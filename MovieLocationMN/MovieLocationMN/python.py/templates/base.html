@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ro">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Site BD</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <nav class="nav">
+    <div class="container">
+      <a href="{{ url_for('home') }}" class="brand">ML</a>
+      <a href="{{ url_for('movies_list') }}">Movies</a>
+      <a href="{{ url_for('locations_list') }}">Locations</a>
+      <a href="{{ url_for('mn_list') }}">MN</a>
+    </div>
+  </nav>
+
+  <main class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, msg in messages %}
+          <div class="alert {{ 'ok' if category=='ok' else 'err' }}">{{ msg }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>

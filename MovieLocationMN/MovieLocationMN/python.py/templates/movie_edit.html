@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Edit Movie #{{ movie.idfilm }}</h2>
+
+<div class="card">
+  <form method="post" action="{{ url_for('movies_update', idfilm=movie.idfilm) }}" class="row">
+    <input name="nume" value="{{ movie.Nume }}" required>
+    <input name="durata" value="{{ movie.durata }}" required>
+    <button type="submit">Salveaza</button>
+  </form>
+  <a class="link" href="{{ url_for('movies_list') }}">Inapoi</a>
+</div>
+{% endblock %}

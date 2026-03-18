@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>MN (Movies <-> Locations)</h2>
+
+<div class="card">
+  <h3>Adauga legatura</h3>
+  <form method="post" action="{{ url_for('mn_add') }}" class="row">
+    <select name="idfilm" required>
+      <option value="" disabled selected>Alege film</option>
+      {% for m in movies %}
+        <option value="{{ m.idfilm }}">{{ m.Nume }} (ID {{ m.idfilm }})</option>
+      {% endfor %}
+    </select>
+
+    <select name="idlocatie" required>
+      <option value="" disabled selected>Alege locatie</option>
+      {% for l in locations %}
+        <option value="{{ l.idlocatie }}">{{ l.Nume }} (ID {{ l.idlocatie }})</option>
+      {% endfor %}
+    </select>
+
+    <button type="submit">Adauga</button>
+  </form>
+
+  {% if not movies or not locations %}
+    <p class="muted">Ai nevoie de cel putin 1 film și 1 locatie ca să creezi legaturi.</p>
+  {% endif %}
+</div>
+
+<div class="card">
+  <h3>Lista legături</h3>
+  <table>
+    <thead>
+      <tr><th>Film</th><th>Locație</th></tr>
+    </thead>
+    <tbody>
+      {% for x in links %}
+      <tr>
+        <td>{{ x.film }} (ID {{ x.idfilm }})</td>
+        <td>{{ x.locatie }} (ID {{ x.idlocatie }})</td>
+        <td class="actions">
+          <a class="btn" href="{{ url_for('mn_edit', idfilm=x.idfilm, idlocatie=x.idlocatie) }}">Edit</a>
+          <form method="post" action="{{ url_for('mn_delete', idfilm=x.idfilm, idlocatie=x.idlocatie) }}" onsubmit="return confirm('Stergi legatura?')">
+            <button class="btn danger" type="submit">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {% else %}
+      <tr><td colspan="3">Nicio legatura.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

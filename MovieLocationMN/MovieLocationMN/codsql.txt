@@ -1,0 +1,23 @@
+CREATE DATABASE ML; 
+USE ML;
+
+CREATE TABLE Movies (
+    idfilm INT AUTO_INCREMENT PRIMARY KEY,
+    Nume VARCHAR(100) NOT NULL,
+    durata SMALLINT UNSIGNED NOT NULL
+);
+
+
+CREATE TABLE Locations (
+    idlocatie INT AUTO_INCREMENT PRIMARY KEY,
+    Nume VARCHAR(100) NOT NULL UNIQUE,
+    capacitate INT UNSIGNED NOT NULL
+);
+
+CREATE TABLE MN (
+    idfilm INT NOT NULL,
+    idlocatie INT NOT NULL,
+    PRIMARY KEY (idfilm, idlocatie),
+    FOREIGN KEY (idfilm) REFERENCES Movies(idfilm) ON DELETE CASCADE,
+    FOREIGN KEY (idlocatie) REFERENCES Locations(idlocatie) ON DELETE CASCADE
+);
